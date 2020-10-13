@@ -36,13 +36,21 @@ public class LoggingAspect {
     @Before("execution(* aop.*.*(..))")
     public void beforeMethod(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();
+        System.out.println("methodName:"+getMethodName(joinPoint));
         System.out.println("[前置通知] the method [" + methodName + "] begins with " + Arrays.asList(joinPoint.getArgs()));
     }
 
     @AfterThrowing(value = "execution(* aop.*.*(..))", throwing = "e")
     public void afterThrowingMethod(JoinPoint joinPoint, NullPointerException e) {
         String methodName = joinPoint.getSignature().getName();
+        System.out.println("methodName:"+getMethodName(joinPoint));
         System.out.println("[异常通知] the method [" + methodName + "] occurs exception: " + e);
+    }
+
+    private String getMethodName(JoinPoint jp) {
+        String clazzName = jp.getTarget().getClass().getSimpleName();
+        String methodName = jp.getSignature().getName();
+        return clazzName + "." + methodName;
     }
 
     //    @Around(value = "execution(* aop.*.*(..))")
