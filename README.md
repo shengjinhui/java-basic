@@ -1,2 +1,2 @@
 # java-basic
-java基础联系
+java基础练习
