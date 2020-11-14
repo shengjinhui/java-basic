@@ -1,5 +1,6 @@
 package aop;
 
+import org.apache.tomcat.jni.Time;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,6 +18,11 @@ public class ArithmeticCalculatorImpl implements ArithmeticCalculator {
 
     @Override
     public int div(int i, int j) {
+        try {
+            Thread.sleep(2000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return i / j;
     }
 }

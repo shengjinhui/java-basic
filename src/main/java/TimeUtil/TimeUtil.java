@@ -2,6 +2,7 @@ package TimeUtil;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.math.BigDecimal;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -107,5 +108,16 @@ public class TimeUtil {
         LocalDate date = LocalDate.now().minus(nDays, ChronoUnit.DAYS);
         DateTimeFormatter formate = DateTimeFormatter.ofPattern(formatter);
         return date.format(formate);
+    }
+
+    /**
+     * ms转s,并保留小数点后三位
+     *
+     * @return
+     */
+    public static String formatMs2Second(Long time) {
+        BigDecimal bd1 = new BigDecimal(time);
+        BigDecimal bd2 = new BigDecimal(1000);
+        return String.valueOf(bd1.divide(bd2, 3, BigDecimal.ROUND_HALF_UP).doubleValue());
     }
 }

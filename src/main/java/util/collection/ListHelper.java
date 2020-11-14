@@ -71,8 +71,9 @@ public class ListHelper {
             }
         }
 
-        if (0 != loopList.size())
+        if (0 != loopList.size()) {
             listArray.add(loopList);
+        }
 
         return listArray;
     }

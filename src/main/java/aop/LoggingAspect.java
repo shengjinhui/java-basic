@@ -4,9 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnCloudPlatform;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -18,7 +15,6 @@ import java.util.Arrays;
  */
 @Component
 @Aspect
-@Order(1)
 @Slf4j
 public class LoggingAspect {
 
@@ -36,14 +32,14 @@ public class LoggingAspect {
     @Before("execution(* aop.*.*(..))")
     public void beforeMethod(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();
-        System.out.println("methodName:"+getMethodName(joinPoint));
+        System.out.println("methodName:" + getMethodName(joinPoint));
         System.out.println("[前置通知] the method [" + methodName + "] begins with " + Arrays.asList(joinPoint.getArgs()));
     }
 
     @AfterThrowing(value = "execution(* aop.*.*(..))", throwing = "e")
     public void afterThrowingMethod(JoinPoint joinPoint, NullPointerException e) {
         String methodName = joinPoint.getSignature().getName();
-        System.out.println("methodName:"+getMethodName(joinPoint));
+        System.out.println("methodName:" + getMethodName(joinPoint));
         System.out.println("[异常通知] the method [" + methodName + "] occurs exception: " + e);
     }
 
@@ -53,7 +49,7 @@ public class LoggingAspect {
         return clazzName + "." + methodName;
     }
 
-    //    @Around(value = "execution(* aop.*.*(..))")
+    //     @Around(value = "execution(* aop.*.*(..))")
     @Around("logMethod()")
     public Object aroundMethod(ProceedingJoinPoint jp) throws Throwable {
 //        String methodName = jp.getSignature().getName();
@@ -70,6 +66,8 @@ public class LoggingAspect {
 //        System.out.println("【环绕通知中的--->后置通知】：-----------------end.----------------------");
 //
         try {
+            System.out.println("【环绕通知中的--->后置通知】：-----------------end.----------------------");
+
             return jp.proceed();
         } finally {
             try {
