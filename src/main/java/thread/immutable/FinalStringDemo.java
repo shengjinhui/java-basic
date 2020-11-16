@@ -14,7 +14,6 @@ public class FinalStringDemo {
 
         String c = b + 2;
         String e = d + 2;
-
         System.out.println(a == c);
         System.out.println(a == e);
     }
